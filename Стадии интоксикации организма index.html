@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Стадии интоксикации организма</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap');
+
+  :root {
+    --bg:      #f2ede6;
+    --surface: #fffcf8;
+    --border:  #e0d9d0;
+    --text:    #1c1a17;
+    --sub:     #5a5550;
+    --muted:   #9a938b;
+    --green:   #2a7a5a;
+    --amber:   #b87318;
+    --red:     #b83228;
+    --darkred: #961e15;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ══ HERO ══ */
+  .hero {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 72px 24px 60px;
+    text-align: center;
+  }
+
+  .hero-eye {
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 7vw, 3.8rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .hero-title em { font-style: normal; color: var(--green); }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--sub);
+    max-width: 540px;
+    margin: 0 auto 40px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px 44px;
+  }
+
+  .hero-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.2rem;
+    font-weight: 900;
+    color: var(--red);
+    line-height: 1;
+  }
+
+  .hero-num-label {
+    font-size: .72rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* ══ THEORY ══ */
+  .theory {
+    background: var(--bg);
+    padding: 52px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .theory-inner {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .label-amber { color: var(--amber); }
+  .label-green { color: var(--green); }
+
+  .theory-text {
+    font-size: 1.05rem;
+    color: var(--sub);
+    line-height: 1.8;
+  }
+
+  .theory-text strong { color: var(--text); font-weight: 600; }
+
+  /* ══ DIVIDER ══ */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 36px 24px 0;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  .div-line { flex: 1; height: 1px; background: var(--border); }
+
+  .div-pill {
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1.5px solid;
+    white-space: nowrap;
+  }
+
+  .div-pill.safe  { color: var(--green); border-color: var(--green); background: #eef7f3; }
+  .div-pill.warn  { color: var(--red);   border-color: var(--red);   background: #fdf0ef; }
+
+  /* ══ STAGE CARDS ══ */
+  .stages {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 28px 24px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--c, var(--green));
+    border-radius: 12px;
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    overflow: hidden;
+  }
+
+  .card-n {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 22px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    font-weight: 900;
+    color: var(--c, var(--green));
+    background: color-mix(in srgb, var(--c, var(--green)) 8%, white);
+  }
+
+  .card-body { padding: 20px 20px 20px 16px; }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .card-desc {
+    font-size: .95rem;
+    color: var(--sub);
+    line-height: 1.7;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 12px;
+  }
+
+  .ctag {
+    font-size: .7rem;
+    letter-spacing: .05em;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: color-mix(in srgb, var(--c, var(--green)) 10%, white);
+    color: var(--c, var(--green));
+    border: 1px solid color-mix(in srgb, var(--c, var(--green)) 22%, transparent);
+    font-weight: 500;
+  }
+
+  /* ══ ACCORDION SECTION ══ */
+  .acc-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 56px 24px 64px;
+  }
+
+  .acc-head {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .acc-head h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .acc-head p {
+    font-size: .95rem;
+    color: var(--sub);
+    margin-bottom: 16px;
+  }
+
+  .acc-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #eef7f3;
+    border: 1px solid #b8ddd0;
+    border-radius: 20px;
+    padding: 7px 18px;
+    font-size: .82rem;
+    color: var(--green);
+    font-weight: 600;
+  }
+
+  .acc-list {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ai {
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--c, var(--green));
+    border-radius: 10px;
+    background: var(--bg);
+    overflow: hidden;
+  }
+
+  .ai-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .ai-btn:active { background: color-mix(in srgb, var(--c, var(--green)) 6%, white); }
+
+  .ai-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--c, var(--green));
+    min-width: 26px;
+    line-height: 1;
+  }
+
+  .ai-lbl { flex: 1; }
+
+  .ai-lbl-sub {
+    font-size: .67rem;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--c, var(--green));
+    font-weight: 600;
+    margin-bottom: 1px;
+  }
+
+  .ai-lbl-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .ai-arr {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--c, var(--green)) 12%, white);
+    border: 1.5px solid color-mix(in srgb, var(--c, var(--green)) 30%, transparent);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background .25s, transform .3s;
+  }
+
+  .ai-arr svg { transition: transform .3s; }
+  .ai.open .ai-arr { background: var(--c, var(--green)); }
+  .ai.open .ai-arr svg { transform: rotate(180deg); }
+  .ai.open .ai-arr path { stroke: #fff; }
+
+  .ai-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .38s ease;
+  }
+
+  .ai-inner {
+    padding: 4px 18px 20px 58px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+
+  .ai-row-label {
+    font-size: .68rem;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .ai-row-val {
+    font-size: .95rem;
+    color: var(--sub);
+    line-height: 1.65;
+  }
+
+  .ai-row-val strong { color: var(--text); font-weight: 600; }
+
+  .ai-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .abadge {
+    font-size: .72rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: color-mix(in srgb, var(--c, var(--green)) 10%, white);
+    color: var(--c, var(--green));
+    border: 1px solid color-mix(in srgb, var(--c, var(--green)) 25%, transparent);
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  /* ══ FOOTER ══ */
+  .footer {
+    padding: 44px 24px;
+    text-align: center;
+    background: var(--bg);
+  }
+
+  .footer p {
+    font-size: .88rem;
+    color: var(--sub);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .footer strong { color: var(--amber); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eye">Гомотоксикология · Г. Г. Рекевег · 1955</p>
+  <h1 class="hero-title">Стадии <em>интоксикации</em><br>организма</h1>
+  <p class="hero-sub">Теория нарастающей токсической нагрузки: от физиологического очищения до онкологии</p>
+  <div class="hero-badge">
+    <span class="hero-num">90%</span>
+    <span class="hero-num-label">болезней — от токсической нагрузки</span>
+  </div>
+</section>
+
+<!-- THEORY -->
+<section class="theory">
+  <div class="theory-inner">
+    <p class="section-label label-amber">Основная концепция</p>
+    <p class="theory-text">
+      В <strong>1955 году</strong> немецкий врач <strong>Г. Г. Рекевег</strong> сформулировал теорию нарастающей токсической нагрузки. Ключевое положение: болезни — это проявление <strong>защитных сил организма</strong> против токсинов. Первые три стадии — <strong>тканевая интоксикация</strong>, последующие три — <strong>клеточная</strong>.
+    </p>
+  </div>
+</section>
+
+<!-- SAFE DIVIDER -->
+<div class="divider">
+  <div class="div-line"></div>
+  <span class="div-pill safe">✦ Организм справляется сам</span>
+  <div class="div-line"></div>
+</div>
+
+<!-- STAGES 1–3 -->
+<div class="stages">
+
+  <div class="card" style="--c: var(--green)">
+    <div class="card-n">1</div>
+    <div class="card-body">
+      <h2 class="card-title">Стадия выделения</h2>
+      <p class="card-desc">Токсины выделяются физиологично в процессе обмена веществ. Вывод токсинов организм регулирует самостоятельно — через пот, слёзы, слизь, кал, мочу и менструальные выделения.</p>
+      <div class="card-tags">
+        <span class="ctag">Баланс системы</span>
+        <span class="ctag">Норма</span>
+        <span class="ctag">Самоочищение</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="--c: var(--green)">
+    <div class="card-n">2</div>
+    <div class="card-body">
+      <h2 class="card-title">Стадия реакции (ответа)</h2>
+      <p class="card-desc">Усиление выделений всех видов токсинов из тканей. Возможны: температура, насморк, кашель, пот, понос, истечение гноя, боли. Реакции при выведении токсинов через воспаление: покраснение, уплотнение, нагноение, вскрытие.</p>
+      <div class="card-tags">
+        <span class="ctag">Гиперметаболизм</span>
+        <span class="ctag">Воспаление</span>
+        <span class="ctag">Боль</span>
+        <span class="ctag">Стресс</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="--c: var(--amber)">
+    <div class="card-n">3</div>
+    <div class="card-body">
+      <h2 class="card-title">Стадия накопления и перераспределения</h2>
+      <p class="card-desc">Лёгкое накопление токсинов в виде ожирения I степени или похудания I степени. Образуются новые места накопления: липомы, фибромы, атеромы, полипы, геморрой и т. д.</p>
+      <div class="card-tags">
+        <span class="ctag">Депозиция</span>
+        <span class="ctag">Липомы</span>
+        <span class="ctag">Полипы</span>
+        <span class="ctag">Папилломы</span>
+        <span class="ctag">Варикоз</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- DANGER DIVIDER -->
+<div class="divider">
+  <div class="div-line"></div>
+  <span class="div-pill warn">⚠ За красной чертой — клеточная интоксикация</span>
+  <div class="div-line"></div>
+</div>
+
+<!-- STAGES 4–6 -->
+<div class="stages">
+
+  <div class="card" style="--c: var(--amber)">
+    <div class="card-n">4</div>
+    <div class="card-body">
+      <h2 class="card-title">Стадия насыщения</h2>
+      <p class="card-desc">Объективных симптомов мало — выставляются хронические диагнозы: ВСД, мигрени, ранний климакс, нарушение обмена веществ, «синдром усталости». Носит название <strong>«молчащей» или «немой»</strong> стадии. Токсины насыщают цитоплазму клеток.</p>
+      <div class="card-tags">
+        <span class="ctag">ВСД</span>
+        <span class="ctag">Мигрени</span>
+        <span class="ctag">Хроническая усталость</span>
+        <span class="ctag">Диабет</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="--c: var(--red)">
+    <div class="card-n">5</div>
+    <div class="card-body">
+      <h2 class="card-title">Стадия разрушения (дегенерация)</h2>
+      <p class="card-desc">Появляются положительные результаты лабораторных исследований. Вторичные нарушения: атрофический ринит, парезы, атрофия зрительного нерва, циррозы. Клетка теряет свою функцию.</p>
+      <div class="card-tags">
+        <span class="ctag">Атрофия</span>
+        <span class="ctag">Цирроз</span>
+        <span class="ctag">Парезы</span>
+        <span class="ctag">Угасание функций</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="--c: var(--darkred)">
+    <div class="card-n">6</div>
+    <div class="card-body">
+      <h2 class="card-title">Стадия озлокачествления</h2>
+      <p class="card-desc">Возникают онкологические заболевания. Токсины воздействуют в комплексе внутри ядра клетки. «Сгорание» метаболизма глюкозы, жиров, витаминов, кетонов, микроэлементов. Клетка упрощается до эмбрионального состояния.</p>
+      <div class="card-tags">
+        <span class="ctag">Онкология</span>
+        <span class="ctag">Мутации</span>
+        <span class="ctag">Нарушение ДНК</span>
+        <span class="ctag">Неопластическая фаза</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ACCORDION -->
+<section class="acc-section">
+  <div class="acc-head">
+    <h2>Сводная таблица гомотоксикологии</h2>
+    <p>По Г. Г. Рекевегу — суть каждой фазы и протекающие процессы</p>
+    <span class="acc-hint">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 9l7 7 7-7" stroke="#2a7a5a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Нажмите на стадию — откроется расшифровка
+    </span>
+  </div>
+
+  <div class="acc-list">
+
+    <div class="ai" style="--c: var(--green)">
+      <button class="ai-btn" onclick="tog(this)">
+        <span class="ai-num">1</span>
+        <span class="ai-lbl">
+          <div class="ai-lbl-sub">Экскреция</div>
+          <div class="ai-lbl-title">Стадия выделения</div>
+        </span>
+        <span class="ai-arr"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#2a7a5a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </button>
+      <div class="ai-body">
+        <div class="ai-inner">
+          <div>
+            <div class="ai-row-label">Пик фазы</div>
+            <div class="ai-row-val">Выделение — баланс системы</div>
+          </div>
+          <div>
+            <div class="ai-row-label">Суть фазы</div>
+            <div class="ai-row-val">Организм самостоятельно регулирует вывод токсинов. Все поступающие токсины выводятся через физиологические каналы.</div>
+          </div>
+          <div>
+            <div class="ai-row-label">Процессы</div>
+            <div class="ai-row-val">Избавление от токсинов через различные каналы выделения: пот, слёзы, слизь, кал, моча, менструальные выделения и т. д.</div>
+          </div>
+          <div class="ai-badges">
+            <span class="abadge">Норма</span>
+            <span class="abadge">Самоочищение</span>
+            <span class="abadge">Баланс</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai" style="--c: var(--green)">
+      <button class="ai-btn" onclick="tog(this)">
+        <span class="ai-num">2</span>
+        <span class="ai-lbl">
+          <div class="ai-lbl-sub">Реакция</div>
+          <div class="ai-lbl-title">Стадия ответа организма</div>
+        </span>
+        <span class="ai-arr"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#2a7a5a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </button>
+      <div class="ai-body">
+        <div class="ai-inner">
+          <div>
+            <div class="ai-row-label">Пик фазы</div>
+            <div class="ai-row-val">Гиперметаболизм — защита активная (функцией)</div>
+          </div>
+          <div>
+            <div class="ai-row-label">Суть фазы</div>
+            <div class="ai-row-val">Усиление выделений всех видов токсинов из тканей. Реакции при выведении и превращении токсических ядов в нетоксические через воспаление.</div>
+          </div>
+          <div>
+            <div class="ai-row-label">Процессы</div>
+            <div class="ai-row-val">Воспаление, боль, травмы, стресс, гиперфункция. Проявления: температура, насморк, кашель, пот, понос, истечение гноя, покраснение, уплотнение, нагноение, вскрытие.</div>
+          </div>
+          <div class="ai-badges">
+            <span class="abadge">Температура</span>
+            <span class="abadge">Воспаление</span>
+            <span class="abadge">Боль</span>
+            <span class="abadge">Стресс</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai" style="--c: var(--amber)">
+      <button class="ai-btn" onclick="tog(this)">
+        <span class="ai-num">3</span>
+        <span class="ai-lbl">
+          <div class="ai-lbl-sub">Депозиция</div>
+          <div class="ai-lbl-title">Стадия накопления</div>
+        </span>
+        <span class="ai-arr"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#b87318" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </button>
+      <div class="ai-body">
+        <div class="ai-inner">
+          <div>
+            <div class="ai-row-label">Пик фазы</div>
+            <div class="ai-row-val">Осаждение — защита пассивная (структурой)</div>
+          </div>
+          <div>
+            <div class="ai-row-label">Суть фазы</div>
+            <div class="ai-row-val">Лёгкое накопление и перераспределение большого количества токсинов. «Немые» фазы болезней.</div>
+          </div>
+          <div>
+            <div class="ai-row-label">Процессы</div>
+            <div class="ai-row-val">Ожирение I степени или похудание I степени. Осаждение токсинов на мембранах клеток: <strong>полипы, липомы, атеромы, ЖКБ, МКБ, варикоз</strong> и другие новообразования.</div>
+          </div>
+          <div class="ai-badges">
+            <span class="abadge">Липомы</span>
+            <span class="abadge">Полипы</span>
+            <span class="abadge">Атеромы</span>
+            <span class="abadge">Варикоз</span>
+            <span class="abadge">Геморрой</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai" style="--c: var(--amber)">
+      <button class="ai-btn" onclick="tog(this)">
+        <span class="ai-num">4</span>
+        <span class="ai-lbl">
+          <div class="ai-lbl-sub">Импрегнация</div>
+          <div class="ai-lbl-title">Стадия насыщения</div>
+        </span>
+        <span class="ai-arr"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#b87318" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </button>
+      <div class="ai-body">
+        <div class="ai-inner">
+          <div>
+            <div class="ai-row-label">Пик фазы</div>
+            <div class="ai-row-val">Насыщение — дезинтеграция системы</div>
+          </div>
+          <div>
+            <div class="ai-row-label">Суть фазы</div>
+            <div class="ai-row-val"><strong>«Молчащая» или «немая» стадия.</strong> Объективных симптомов мало, жалобы есть, но анализы ещё не дали сбой. Токсины проникают внутрь клеток — насыщают цитоплазму.</div>
+          </div>
+          <div>
+            <div class="ai-row-label">Процессы</div>
+            <div class="ai-row-val">Насыщение токсинами цитоплазмы клетки. Дефектные белки, гормоны, ферменты, катализаторы. Хронические диагнозы: ВСД, мигрени, ранний климакс, нарушение обмена веществ, остеохондроз, синдром усталости, сахарный диабет.</div>
+          </div>
+          <div class="ai-badges">
+            <span class="abadge">ВСД</span>
+            <span class="abadge">Мигрени</span>
+            <span class="abadge">Хроническая усталость</span>
+            <span class="abadge">Диабет</span>
+            <span class="abadge">Остеохондроз</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai" style="--c: var(--red)">
+      <button class="ai-btn" onclick="tog(this)">
+        <span class="ai-num">5</span>
+        <span class="ai-lbl">
+          <div class="ai-lbl-sub">Дегенерация</div>
+          <div class="ai-lbl-title">Стадия разрушения</div>
+        </span>
+        <span class="ai-arr"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#b83228" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </button>
+      <div class="ai-body">
+        <div class="ai-inner">
+          <div>
+            <div class="ai-row-label">Пик фазы</div>
+            <div class="ai-row-val">Смерть функции — угасание функции клетки</div>
+          </div>
+          <div>
+            <div class="ai-row-label">Суть фазы</div>
+            <div class="ai-row-val">Токсины проникают в мембрану ядра клетки. Нарушается «управление» клеткой. Разрушаются ферменты и гены. Активнее проявляются наследственные заболевания.</div>
+          </div>
+          <div>
+            <div class="ai-row-label">Процессы</div>
+            <div class="ai-row-val">Положительные результаты лабораторных исследований. Вторичные нарушения: атрофический ринит, парезы, атрофия зрительного нерва, циррозы. <strong>Почечная и сердечная недостаточность.</strong> Клетка теряет функцию.</div>
+          </div>
+          <div class="ai-badges">
+            <span class="abadge">Цирроз</span>
+            <span class="abadge">Атрофия</span>
+            <span class="abadge">Парезы</span>
+            <span class="abadge">Почечная недостаточность</span>
+            <span class="abadge">Сердечная недостаточность</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai" style="--c: var(--darkred)">
+      <button class="ai-btn" onclick="tog(this)">
+        <span class="ai-num">6</span>
+        <span class="ai-lbl">
+          <div class="ai-lbl-sub">Онкология</div>
+          <div class="ai-lbl-title">Стадия озлокачествления</div>
+        </span>
+        <span class="ai-arr"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#961e15" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </button>
+      <div class="ai-body">
+        <div class="ai-inner">
+          <div>
+            <div class="ai-row-label">Пик фазы</div>
+            <div class="ai-row-val">Неопластическая (эмбрио-) фаза — упрощённый вариант структуры</div>
+          </div>
+          <div>
+            <div class="ai-row-label">Суть фазы</div>
+            <div class="ai-row-val">Токсины воздействуют внутри ядра клетки в комплексе. Возникают онкологические заболевания.</div>
+          </div>
+          <div>
+            <div class="ai-row-label">Процессы</div>
+            <div class="ai-row-val">Онкологический процесс: «сгорание» в огне метаболизма любого топлива — <strong>глюкозы, жиров, витаминов, кетонов, микроэлементов.</strong> Клетка упрощается до эмбрионального состояния.</div>
+          </div>
+          <div class="ai-badges">
+            <span class="abadge">Онкология</span>
+            <span class="abadge">Мутации ДНК</span>
+            <span class="abadge">Неопластическая фаза</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>Материал основан на теории нарастающей токсической нагрузки <strong>Г. Г. Рекевега (1955)</strong>. Профилактика и лечение заболеваний должны начинаться с глубокой очистки организма — пока он ещё справляется самостоятельно (стадии 1–3).</p>
+</footer>
+
+<script>
+  function tog(btn) {
+    const item = btn.closest('.ai');
+    const body = item.querySelector('.ai-body');
+    const wasOpen = item.classList.contains('open');
+
+    document.querySelectorAll('.ai.open').forEach(el => {
+      el.classList.remove('open');
+      el.querySelector('.ai-body').style.maxHeight = '0';
+    });
+
+    if (!wasOpen) {
+      item.classList.add('open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    }
+  }
+</script>
+</body>
+</html>
